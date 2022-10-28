@@ -4,4 +4,80 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    form{
+        width: 30%;
+        padding: 40px;
+        // background-color: rgba(255, 255, 255, 0.2);
+        // filter: blur(8px);
+        // background-color: silver;
+        background: rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(15px);
+        border-radius: 20px;
+
+        .heading{
+            div{
+                text-align: center;
+                font-size: 24px;
+                font-weight: bold;
+                letter-spacing: 1.5px;
+                text-transform: uppercase;
+                padding-bottom: 25px;
+                color: white;
+            }
+        }
+
+        .profileImg{
+            width: 100px;
+            margin: auto;
+        }
+
+        .inputBox{
+            padding-top: 15px;
+
+            label{
+                display: block;
+                font-size: 16px;
+                padding-bottom: 7px;
+                letter-spacing: 1.3px;
+                color: white;
+            }
+
+            input{
+                width: calc(100% - 20px);
+                display: block;
+                padding: 7px 10px;
+                outline: none;
+                border: none;
+                border-radius: 5px;
+                font-size: 16px;
+                letter-spacing: 1.2px;
+                background-color: transparent;
+                border-bottom: 1px solid white;
+                color: white;
+
+                &::placeholder{
+                    color: rgb(160, 160, 160);
+                }
+            }
+        }
+
+        .buttonBox{
+            padding-top: 40px;
+            text-align: center;
+
+            button{
+                font-size: 16px;
+                padding: 5px 15px;
+                border-radius: 5px;
+                letter-spacing: 1.2px;
+                cursor: pointer;
+                border: none;
+                outline: none;
+            }
+        }
+    }
 }
