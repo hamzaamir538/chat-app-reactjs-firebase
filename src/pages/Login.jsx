@@ -1,6 +1,7 @@
 import React from 'react';
 import profileImg from './../img/avataaars.png';
 import { BiLogInCircle } from 'react-icons/bi';
+import { AiOutlineEye } from 'react-icons/ai';
 
 const Login = () => {
   return (
@@ -19,6 +20,7 @@ const Login = () => {
         <div className='inputBox'>
           <label htmlFor="password">Password:</label>
           <input type="password" name="password" id="password" placeholder='********' />
+          <button className='showPasswordBtn' type='button'><AiOutlineEye /></button>
         </div>
         <div className='buttonBox'>
           <button type="submit">

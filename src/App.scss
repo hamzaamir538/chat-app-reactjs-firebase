@@ -1,12 +1,11 @@
 .loginPage{
     background-image: url('./img/background.jpg');
-    height: 100vh;
+    min-height: calc(100vh - 80px);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    background-attachment: fixed;
+    padding: 40px 0px;
 
     form{
         width: 30%;
@@ -14,6 +13,7 @@
         background: rgba(0, 0, 0, 0.3);
         backdrop-filter: blur(15px);
         border-radius: 20px;
+        margin: auto;
 
         .heading{
             div{
@@ -34,6 +34,7 @@
 
         .inputBox{
             padding-top: 15px;
+            position: relative;
 
             label{
                 display: block;
@@ -59,6 +60,18 @@
                 &::placeholder{
                     color: rgb(160, 160, 160);
                 }
+            }
+            
+            .showPasswordBtn{
+                position: absolute;
+                top: 60%;
+                right: 0%;
+                background-color: transparent;
+                color: white;
+                border: none;
+                outline: none;
+                cursor: pointer;
+                font-size: 20px;
             }
         }
 
@@ -105,6 +118,7 @@ background: linear-gradient(to right, #2C5364, #203A43, #0F2027); /* W3C, IE 10+
                 text-align: center;
                 color: white;
                 padding-top: 25px;
+                font-size: 14px;
             }
         }
     }
