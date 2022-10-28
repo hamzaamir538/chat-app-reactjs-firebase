@@ -1,5 +1,6 @@
 import React from 'react';
-import profileImg from './../img/avataaars.png'
+import profileImg from './../img/avataaars.png';
+import { BiLogInCircle } from 'react-icons/bi';
 
 const Login = () => {
   return (
@@ -20,9 +21,12 @@ const Login = () => {
           <input type="password" name="password" id="password" placeholder='********' />
         </div>
         <div className='buttonBox'>
-          <button type="submit">Login</button>
+          <button type="submit">
+            <BiLogInCircle />
+            <span>Login</span>
+          </button>
         </div>
-        <div>
+        <div className='bottomText'>
           <div>Don't have an account?</div>
         </div>
       </form>
