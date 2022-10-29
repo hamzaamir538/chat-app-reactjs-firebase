@@ -11,9 +11,10 @@
         width: 30%;
         padding: 40px;
         background: rgba(0, 0, 0, 0.3);
-        backdrop-filter: blur(15px);
-        border-radius: 20px;
+        backdrop-filter: blur(10px);
+        border-radius: 25px;
         margin: auto;
+        border-bottom: 3px solid #2C5364;
 
         .heading{
             div{
@@ -121,5 +122,94 @@ background: linear-gradient(to right, #2C5364, #203A43, #0F2027); /* W3C, IE 10+
                 font-size: 14px;
             }
         }
+    }
+}
+
+
+
+.homePage{
+    display: flex;
+    min-height: 100vh;
+
+    .sidebarBox{
+        flex: 1;
+        background-color: #6A2C70;
+
+        .navbar{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            background-color: #DFB6E2;
+
+            .navLogo{
+                width: 100px;
+            }
+
+            .navImg{
+                width: 40px;
+                cursor: pointer;
+
+                img{
+                    border-radius: 50%;
+                }
+            }
+        }
+
+        .searchBox{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: row;
+
+            form{
+                display: flex;
+                width: 100%;
+                background-color: rgba(0, 0, 0, 0.2);
+
+                input{
+                    flex: 1;
+                    border: none;
+                    outline: none;
+                    border-radius: 0;
+                    padding: 10px 10px;
+                    font-size: 16px;
+                    background-color: transparent;
+                    color: white;
+                    letter-spacing: 1.2px;
+
+                    &::placeholder{
+                        color: rgb(215, 215, 215);
+                    }
+                }
+
+                button{
+                    background-color: rgba(0, 0, 0, 0.2);
+                    color: white;
+                    font-size: 20px;
+                    border: none;
+                    outline: none;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 0px 15px;
+                    cursor: pointer;
+                    transition-duration: 0.3s;
+
+                    &:hover{
+                        background-color: rgba(0, 0, 0, 0.3);
+                    }
+
+                    &:active{
+                        background-color: rgba(0, 0, 0, 0.5);
+                    }
+                }
+            }
+        }
+    }
+
+    .chatBox{
+        flex: 3;
+        background-color: lightyellow;
     }
 }
