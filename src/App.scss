@@ -151,6 +151,8 @@
     padding: 10px 0px;
     overflow-y: scroll;
     direction: rtl;
+    box-shadow: 0px 0px 30px #6A2C70;
+    z-index: 2;
 
     /* width */
 &::-webkit-scrollbar {
@@ -339,7 +341,7 @@
         padding: 10px 15px;
 
         &:active{
-          background-color: silver;
+          background-color: #dfb6e2;
         }
 
         .senderImg{
@@ -375,7 +377,7 @@
           transition-duration: 0.3s;
 
           &:active{
-            background-color: silver;
+            background-color: #dfb6e2;
           }
         }
       }
@@ -386,11 +388,34 @@
       // height: calc(100% - 120px);
       flex: 1;
       padding: 10px;
+      background-color: #dfb6e2;
+      overflow-y: auto;
+
+          /* width */
+&::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+&::-webkit-scrollbar-track {
+  background: #D098D7;
+}
+
+/* Handle */
+&::-webkit-scrollbar-thumb {
+  background: #B55DC0;
+}
+
+/* Handle on hover */
+&::-webkit-scrollbar-thumb:hover {
+  background: #6a2c70;
+}
 
       .singleMsg{
         display: flex;
         gap: 10px;
         width: 90%;
+        margin-bottom: 10px;
 
         .msgInfo{
           display: flex;
@@ -440,6 +465,15 @@
             border: none;
             outline: none;
             background-color: white;
+            transition-duration: 0.3s;
+
+            &:hover{
+              color: red;
+            }
+
+            &:active{
+              background-color: #dfb6e2;
+            }
           }
         }
 
@@ -496,7 +530,7 @@
             transition-duration: 0.3s;
 
             &:active{
-              background-color: silver;
+              background-color: #dfb6e2;
             }
           }
         }
@@ -519,7 +553,7 @@
             transition-duration: 0.3s;
 
             &:active{
-              background-color: silver;
+              background-color: #dfb6e2;
             }
 
             span{
