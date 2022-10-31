@@ -140,7 +140,7 @@
   min-height: 100vh;
   max-height: 100vh;
   overflow: hidden;
-  background-color: lightyellow;
+  background-color: white;
 
   .sidebarBox {
     // flex: 1;
@@ -322,5 +322,72 @@
   .chatBox {
     // flex: 3;
     width: 70%;
+
+    .chatNav{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+
+      .senderInfo{
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        gap: 10px;
+        padding: 10px 15px;
+
+        &:active{
+          background-color: silver;
+        }
+
+        .senderImg{
+          width: 40px;
+
+          img{
+            border-radius: 50%;
+            object-fit: cover;
+          }
+        }
+
+        .senderName{
+          font-size: 18px;
+          font-weight: bold;
+        }
+      }
+
+      .chatFeatureIcons{
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 7px 15px;
+
+        div{
+          font-size: 22px;
+          width: 45px;
+          height: 45px;
+          cursor: pointer;
+          border-radius: 50%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          transition-duration: 0.3s;
+
+          &:active{
+            background-color: silver;
+          }
+        }
+      }
+    }
+
+    .messagesBox{
+      background-color: silver;
+      height: calc(100% - 120px);
+    }
+
+    .inputBox{
+      height: 60px;
+      display: flex;
+    }
+
   }
 }
