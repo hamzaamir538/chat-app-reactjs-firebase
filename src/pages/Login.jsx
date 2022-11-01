@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import profileImg from "./../img/avataaars.png";
 import { BiLogInCircle } from "react-icons/bi";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -47,7 +48,7 @@ const Login = () => {
           </button>
         </div>
         <div className="bottomText">
-          <div>Don't have an account?</div>
+          <div>Don't have an account? <Link className="link" to='/register'>Register</Link></div>
         </div>
       </form>
     </div>
