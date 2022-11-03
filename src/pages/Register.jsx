@@ -1,16 +1,27 @@
 import React, { useState } from "react";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import {auth} from "./../Firebase";
 import profileImg from "./../img/avataaars.png";
 import { BiLogInCircle } from "react-icons/bi";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Register = () => {
+  const navigate = useNavigate();
+
   const [registerDetails, setRegisterDetails] = useState({
-    fullName: '',
-    userName: '',
-    email: '',
-    password: '',
-    cnfrmPassword: ''
+    fullName: "",
+    userName: "",
+    email: "",
+    password: "",
+    cnfrmPassword: "",
+  });
+  const [registerErrors, setRegisterErrors] = useState({
+    fullName: "",
+    userName: "",
+    email: "",
+    password: "",
+    cnfrmPassword: "",
   });
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -18,7 +29,23 @@ const Register = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(registerDetails);
-  }
+
+    createUserWithEmailAndPassword(auth, registerDetails.email, registerDetails.password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        console.log("Account Created Successfully");
+        navigate('/');
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log("User Registration Error:");
+        console.log(error)
+        // ..
+      });
+  };
 
   return (
     <div className="loginPage">
@@ -37,7 +64,12 @@ const Register = () => {
             id="fullName"
             placeholder="John Doe"
             value={registerDetails.fullName}
-            onChange={(e) => setRegisterDetails({...registerDetails, fullName: e.target.value})}
+            onChange={(e) =>
+              setRegisterDetails({
+                ...registerDetails,
+                fullName: e.target.value,
+              })
+            }
           />
         </div>
         <div className="inputBox">
@@ -48,7 +80,12 @@ const Register = () => {
             id="userName"
             placeholder="johndoe1"
             value={registerDetails.userName}
-            onChange={(e) => setRegisterDetails({...registerDetails, userName: e.target.value})}
+            onChange={(e) =>
+              setRegisterDetails({
+                ...registerDetails,
+                userName: e.target.value,
+              })
+            }
           />
         </div>
         <div className="inputBox">
@@ -59,7 +96,9 @@ const Register = () => {
             id="email"
             placeholder="johndoe1@email.com"
             value={registerDetails.email}
-            onChange={(e) => setRegisterDetails({...registerDetails, email: e.target.value})}
+            onChange={(e) =>
+              setRegisterDetails({ ...registerDetails, email: e.target.value })
+            }
           />
         </div>
         <div className="inputBox">
@@ -70,7 +109,12 @@ const Register = () => {
             id="password"
             placeholder="********"
             value={registerDetails.password}
-            onChange={(e) => setRegisterDetails({...registerDetails, password: e.target.value})}
+            onChange={(e) =>
+              setRegisterDetails({
+                ...registerDetails,
+                password: e.target.value,
+              })
+            }
           />
           <button
             className="showPasswordBtn"
@@ -88,14 +132,23 @@ const Register = () => {
             id="cnfrmPassword"
             placeholder="********"
             value={registerDetails.cnfrmPassword}
-            onChange={(e) => setRegisterDetails({...registerDetails, cnfrmPassword: e.target.value})}
+            onChange={(e) =>
+              setRegisterDetails({
+                ...registerDetails,
+                cnfrmPassword: e.target.value,
+              })
+            }
           />
           <button
             className="showPasswordBtn"
             type="button"
             onClick={() => setShowConfirmPassword(!showConfirmPassword)}
           >
-            {!showConfirmPassword ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
+            {!showConfirmPassword ? (
+              <AiOutlineEye />
+            ) : (
+              <AiOutlineEyeInvisible />
+            )}
           </button>
         </div>
         <div className="buttonBox">
@@ -105,7 +158,12 @@ const Register = () => {
           </button>
         </div>
         <div className="bottomText">
-          <div>Already have an account? <Link className="link" to='/login'>Login</Link></div>
+          <div>
+            Already have an account?{" "}
+            <Link className="link" to="/login">
+              Login
+            </Link>
+          </div>
         </div>
       </form>
     </div>
