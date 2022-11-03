@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import { LoginState } from "./context/LoginContext";
+import NoPage from "./pages/NoPage";
 
 function App() {
   document.title = `HERON Chat | ${window.location.hostname}`;
@@ -17,7 +18,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="*" element={<Login />} />
+          <Route path="*" element={<NoPage />} />
         </Routes>
       {/* </BrowserRouter> */}
     </LoginState>
