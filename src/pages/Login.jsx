@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../Firebase";
 import profileImg from "./../img/avataaars.png";
@@ -28,7 +28,7 @@ const Login = () => {
         // Signed in
         const user = userCredential.user;
         console.log("user signed in successfully");
-        navigate('/');
+        navigate("/");
         // ...
       })
       .catch((error) => {
@@ -41,7 +41,7 @@ const Login = () => {
 
   return (
     <div className="loginPage">
-      <form action="" onSubmit={handleLogin}>
+        <form action="" onSubmit={handleLogin}>
         <div className="heading">
           <div>Login</div>
         </div>

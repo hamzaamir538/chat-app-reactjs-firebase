@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import {auth} from "./../Firebase";
 import profileImg from "./../img/avataaars.png";
 import { BiLogInCircle } from "react-icons/bi";
@@ -34,6 +34,9 @@ const Register = () => {
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
+        updateProfile(user, {
+          displayName: registerDetails.fullName
+        })
         console.log("Account Created Successfully");
         navigate('/');
         // ...
