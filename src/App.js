@@ -10,7 +10,6 @@ import { onAuthStateChanged } from "firebase/auth";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import NoPage from "./pages/NoPage";
 
 function App() {
   document.title = `HERON Chat | ${window.location.hostname}`;

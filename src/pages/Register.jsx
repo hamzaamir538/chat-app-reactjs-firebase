@@ -11,47 +11,71 @@ const Register = () => {
 
   const [registerDetails, setRegisterDetails] = useState({
     fullName: "",
-    userName: "",
+    // userName: "",
     email: "",
     password: "",
     cnfrmPassword: "",
   });
   const [registerErrors, setRegisterErrors] = useState({
     fullName: "",
-    userName: "",
+    // userName: "",
     email: "",
     password: "",
     cnfrmPassword: "",
+    fireError: ""
   });
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(registerDetails);
 
-    createUserWithEmailAndPassword(auth, registerDetails.email, registerDetails.password)
+    if(registerDetails.fullName.length <= 3){
+      setRegisterErrors({
+        ...registerErrors, fullName: 'Name must be greater than 3 characters!'
+      })
+    }
+    else if(!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(registerDetails.email))){
+      setRegisterErrors({
+        ...registerErrors, email: 'Email not correct!', fullName: ''
+      })
+    }
+    else if(registerDetails.password.length <= 5 || registerDetails.password.length >= 13){
+      setRegisterErrors({
+        ...registerErrors, password: 'Password must be 6 to 12 characters long!', email: ''
+      })
+    }
+    else if(registerDetails.password !== registerDetails.cnfrmPassword){
+      setRegisterErrors({
+        ...registerErrors, cnfrmPassword: 'Password not correct!', password: ''
+      })
+    }
+    else{
+      createUserWithEmailAndPassword(auth, registerDetails.email, registerDetails.password)
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
         updateProfile(user, {
           displayName: registerDetails.fullName
         })
-        console.log("Account Created Successfully");
+        setRegisterErrors({
+          ...registerErrors, fireError: ''
+        })
         navigate('/');
-        // ...
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log("User Registration Error:");
-        console.log(error)
-        // ..
+        // const errorCode = error.code;
+        // const errorMessage = error.message;
+        setRegisterErrors({
+          ...registerErrors, fireError: 'Oops something went wrong!', cnfrmPassword: ''
+        })
       });
+    }
   };
 
   return (
     <div className="loginPage">
+      {/* <pre style={{color: 'white'}}>{JSON.stringify(registerDetails, undefined, 2)}</pre> */}
       <form action="" onSubmit={handleSubmit}>
         <div className="heading">
           <div>Register</div>
@@ -70,12 +94,14 @@ const Register = () => {
             onChange={(e) =>
               setRegisterDetails({
                 ...registerDetails,
-                fullName: e.target.value,
+                fullName: e.target.value.trimStart().replace(/\s+/g, " "),
               })
             }
           />
+          
         </div>
-        <div className="inputBox">
+        <div className="error">{registerErrors.fullName == '' ? '' : registerErrors.fullName}</div>
+        {/* <div className="inputBox">
           <label htmlFor="userName">Username:</label>
           <input
             type=""
@@ -90,7 +116,7 @@ const Register = () => {
               })
             }
           />
-        </div>
+        </div> */}
         <div className="inputBox">
           <label htmlFor="email">Email:</label>
           <input
@@ -104,6 +130,7 @@ const Register = () => {
             }
           />
         </div>
+        <div className="error">{registerErrors.email == '' ? '' : registerErrors.email}</div>
         <div className="inputBox">
           <label htmlFor="password">Password:</label>
           <input
@@ -127,6 +154,7 @@ const Register = () => {
             {!showPassword ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
           </button>
         </div>
+        <div className="error">{registerErrors.password == '' ? '' : registerErrors.password}</div>
         <div className="inputBox">
           <label htmlFor="cnfrmPassword">Confirm Password:</label>
           <input
@@ -154,12 +182,14 @@ const Register = () => {
             )}
           </button>
         </div>
+        <div className="error">{registerErrors.cnfrmPassword == '' ? '' : registerErrors.cnfrmPassword}</div>
         <div className="buttonBox">
           <button type="submit">
             <BiLogInCircle />
             <span>Sign up</span>
           </button>
         </div>
+        <div className="error">{registerErrors.fireError == '' ? '' : registerErrors.fireError}</div>
         <div className="bottomText">
           <div>
             Already have an account?{" "}

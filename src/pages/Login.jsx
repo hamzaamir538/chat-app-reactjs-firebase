@@ -17,26 +17,42 @@ const Login = () => {
   const [loginErrors, setLoginErrors] = useState({
     email: "",
     password: "",
+    fireError: ""
   });
 
   const handleLogin = (e) => {
     e.preventDefault();
-    console.log(loginDetails);
 
-    signInWithEmailAndPassword(auth, loginDetails.email, loginDetails.password)
+    if(!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(loginDetails.email))){
+      setLoginErrors({
+        ...loginErrors, email: 'Email not correct!'
+      })
+    }
+    else if(loginDetails.password.length <= 5 || loginDetails.password.length >= 13){
+      setLoginErrors({
+        ...loginErrors, password: 'Password not correct!', email: ''
+      })
+    }
+    else{
+      signInWithEmailAndPassword(auth, loginDetails.email, loginDetails.password)
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
-        console.log("user signed in successfully");
         navigate("/");
-        // ...
+        setLoginErrors({
+          ...loginErrors, fireError: ''
+        })
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log("user signed in error:");
         console.log(error);
+        setLoginErrors({
+          ...loginErrors, fireError: 'Oops something went wrong!', password: ''
+        })
       });
+    }
   };
 
   return (
@@ -61,6 +77,7 @@ const Login = () => {
             }
           />
         </div>
+        <div className="error">{loginErrors.email == '' ? '' : loginErrors.email}</div>
         <div className="inputBox">
           <label htmlFor="password">Password:</label>
           <input
@@ -81,12 +98,14 @@ const Login = () => {
             {!showPassword ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
           </button>
         </div>
+        <div className="error">{loginErrors.password == '' ? '' : loginErrors.password}</div>
         <div className="buttonBox">
           <button type="submit">
             <BiLogInCircle />
             <span>Login</span>
           </button>
         </div>
+        <div className="error">{loginErrors.fireError == '' ? '' : loginErrors.fireError}</div>
         <div className="bottomText">
           <div>
             Don't have an account?{" "}
