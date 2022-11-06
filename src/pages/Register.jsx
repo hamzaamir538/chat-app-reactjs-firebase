@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import {auth} from "./../Firebase";
+import { doc, setDoc } from "firebase/firestore";
+import { auth, db } from "./../Firebase";
 import profileImg from "./../img/avataaars.png";
 import { BiLogInCircle } from "react-icons/bi";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
@@ -22,7 +23,7 @@ const Register = () => {
     email: "",
     password: "",
     cnfrmPassword: "",
-    fireError: ""
+    fireError: "",
   });
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -30,46 +31,69 @@ const Register = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if(registerDetails.fullName.length <= 3){
+    if (registerDetails.fullName.length <= 3) {
       setRegisterErrors({
-        ...registerErrors, fullName: 'Name must be greater than 3 characters!'
-      })
-    }
-    else if(!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(registerDetails.email))){
-      setRegisterErrors({
-        ...registerErrors, email: 'Email not correct!', fullName: ''
-      })
-    }
-    else if(registerDetails.password.length <= 5 || registerDetails.password.length >= 13){
-      setRegisterErrors({
-        ...registerErrors, password: 'Password must be 6 to 12 characters long!', email: ''
-      })
-    }
-    else if(registerDetails.password !== registerDetails.cnfrmPassword){
-      setRegisterErrors({
-        ...registerErrors, cnfrmPassword: 'Password not correct!', password: ''
-      })
-    }
-    else{
-      createUserWithEmailAndPassword(auth, registerDetails.email, registerDetails.password)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        updateProfile(user, {
-          displayName: registerDetails.fullName
-        })
-        setRegisterErrors({
-          ...registerErrors, fireError: ''
-        })
-        navigate('/');
-      })
-      .catch((error) => {
-        // const errorCode = error.code;
-        // const errorMessage = error.message;
-        setRegisterErrors({
-          ...registerErrors, fireError: 'Oops something went wrong!', cnfrmPassword: ''
-        })
+        ...registerErrors,
+        fullName: "Name must be greater than 3 characters!",
       });
+    } else if (
+      !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(
+        registerDetails.email
+      )
+    ) {
+      setRegisterErrors({
+        ...registerErrors,
+        email: "Email not correct!",
+        fullName: "",
+      });
+    } else if (
+      registerDetails.password.length <= 5 ||
+      registerDetails.password.length >= 13
+    ) {
+      setRegisterErrors({
+        ...registerErrors,
+        password: "Password must be 6 to 12 characters long!",
+        email: "",
+      });
+    } else if (registerDetails.password !== registerDetails.cnfrmPassword) {
+      setRegisterErrors({
+        ...registerErrors,
+        cnfrmPassword: "Password not correct!",
+        password: "",
+      });
+    } else {
+      createUserWithEmailAndPassword(
+        auth,
+        registerDetails.email,
+        registerDetails.password
+      )
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          updateProfile(user, {
+            displayName: registerDetails.fullName,
+          });
+          // Add a new document in collection "users"
+          setDoc(doc(db, "users", user.uid), {
+            displayName: registerDetails.fullName,
+            email: registerDetails.email,
+            photoURL: ""
+          });
+          setRegisterErrors({
+            ...registerErrors,
+            fireError: "",
+          });
+          navigate("/");
+        })
+        .catch((error) => {
+          // const errorCode = error.code;
+          // const errorMessage = error.message;
+          setRegisterErrors({
+            ...registerErrors,
+            fireError: "Oops something went wrong!",
+            cnfrmPassword: "",
+          });
+        });
     }
   };
 
@@ -98,9 +122,10 @@ const Register = () => {
               })
             }
           />
-          
         </div>
-        <div className="error">{registerErrors.fullName == '' ? '' : registerErrors.fullName}</div>
+        <div className="error">
+          {registerErrors.fullName == "" ? "" : registerErrors.fullName}
+        </div>
         {/* <div className="inputBox">
           <label htmlFor="userName">Username:</label>
           <input
@@ -130,7 +155,9 @@ const Register = () => {
             }
           />
         </div>
-        <div className="error">{registerErrors.email == '' ? '' : registerErrors.email}</div>
+        <div className="error">
+          {registerErrors.email == "" ? "" : registerErrors.email}
+        </div>
         <div className="inputBox">
           <label htmlFor="password">Password:</label>
           <input
@@ -154,7 +181,9 @@ const Register = () => {
             {!showPassword ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
           </button>
         </div>
-        <div className="error">{registerErrors.password == '' ? '' : registerErrors.password}</div>
+        <div className="error">
+          {registerErrors.password == "" ? "" : registerErrors.password}
+        </div>
         <div className="inputBox">
           <label htmlFor="cnfrmPassword">Confirm Password:</label>
           <input
@@ -182,14 +211,20 @@ const Register = () => {
             )}
           </button>
         </div>
-        <div className="error">{registerErrors.cnfrmPassword == '' ? '' : registerErrors.cnfrmPassword}</div>
+        <div className="error">
+          {registerErrors.cnfrmPassword == ""
+            ? ""
+            : registerErrors.cnfrmPassword}
+        </div>
         <div className="buttonBox">
           <button type="submit">
             <BiLogInCircle />
             <span>Sign up</span>
           </button>
         </div>
-        <div className="error">{registerErrors.fireError == '' ? '' : registerErrors.fireError}</div>
+        <div className="error">
+          {registerErrors.fireError == "" ? "" : registerErrors.fireError}
+        </div>
         <div className="bottomText">
           <div>
             Already have an account?{" "}
