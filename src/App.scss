@@ -212,11 +212,45 @@
       }
 
       .navImg {
-        width: 40px;
-        cursor: pointer;
+        width: max-content;
+        position: relative;
 
-        img {
-          border-radius: 50%;
+        button{
+          cursor: pointer;
+          border: none;
+          outline: none;
+          background-color: transparent;
+          width: 50px;
+          
+          img {
+            border-radius: 50%;
+          }
+        }
+
+        .navDropDown{
+          position: absolute;
+          background-color: white;
+          right: 0;
+          min-width: 80px;
+
+          div{
+            padding: 3px 10px;
+            transition-duration: 0.3s;
+            cursor: pointer;
+            font-size: 14px;
+            letter-spacing: 1px;
+
+            &:hover{
+              background-color: lightgray;
+            }
+
+            button{
+              text-align: left;
+              width: 100%;
+              padding: 0px;
+              letter-spacing: 1px;
+            }
+          }
         }
       }
     }
@@ -317,10 +351,11 @@
           display: flex;
           align-items: center;
           justify-content: space-between;
-          width: 100%;
+          width: calc(100% - 120px);
 
           .chatMessage {
             padding: 0px 10px;
+            width: 100%;
 
             .chatName {
               font-size: 16px;
@@ -328,19 +363,20 @@
               white-space: nowrap;
               overflow: hidden;
               text-overflow: ellipsis;
-              width: 150px;
+              // width: 150px;
             }
             .chatLastMsg {
               font-size: 14px;
               white-space: nowrap;
               overflow: hidden;
               text-overflow: ellipsis;
-              width: 150px;
+              // width: 150px;
             }
           }
 
           .chatTime {
             font-size: 14px;
+            width: 60px;
           }
         }
       }
