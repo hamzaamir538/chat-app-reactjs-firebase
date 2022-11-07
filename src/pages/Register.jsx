@@ -77,7 +77,7 @@ const Register = () => {
           setDoc(doc(db, "users", user.uid), {
             displayName: registerDetails.fullName,
             email: registerDetails.email,
-            photoURL: ""
+            photoURL: "https://picsum.photos/200"
           });
           setRegisterErrors({
             ...registerErrors,
