@@ -7,8 +7,10 @@ import Input from "./Input";
 const Chat = () => {
   return (
     <div className="chatBox">
+      
+      <div className="noChat">Select a chat to continue!</div>
 
-      <div className="chatNav">
+      {/* <div className="chatNav">
         <div className="senderInfo">
           <div className="senderImg">
             <img src={dp} width='100%' alt="" />
@@ -30,8 +32,7 @@ const Chat = () => {
 
       <Messages />
 
-      <Input />
-
+      <Input /> */}
     </div>
   );
 };

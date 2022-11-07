@@ -6,6 +6,8 @@ const Chats = () => {
   return (
     <div className="chatsBox">
 
+<div className="chatsBoxHeading">Chats</div>
+
       <div className="singleChatBox">
         <div className="chatImg">
           <img src={dp} width="100%" alt="" />

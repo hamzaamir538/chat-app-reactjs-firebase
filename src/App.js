@@ -10,6 +10,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Layout from "./pages/Layout";
 
 function App() {
   document.title = `HERON Chat | ${window.location.hostname}`;
@@ -45,8 +46,10 @@ function App() {
           {
             isAuthenticated ?
             <Routes>
-              <Route path="*" element={<Home />} />
-              {/* <Route index element={<Home />} /> */}
+              <Route path='/'>
+              <Route path="*" element={<Layout />} />
+                <Route index element={<Layout />} />
+              </Route>
             </Routes>
             :
             <Routes>
